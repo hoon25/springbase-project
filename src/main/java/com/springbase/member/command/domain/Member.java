@@ -4,6 +4,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,9 +21,17 @@ public class Member {
   @Column(name = "member_id")
   private Long id;
 
+  @Column(nullable = false)
+  private String email;
+
+  @Embedded
+  private Password password;
+
+  @Column(nullable = false)
   private String name;
 
-  private Password password;
+  @Column(nullable = false)
+  private boolean blocked;
 
   public Member(String name, String password) {
     this(name, new Password(password));
@@ -31,6 +40,7 @@ public class Member {
   private Member(String name, Password password) {
     this.name = name;
     this.password = password;
+    this.blocked = false;
   }
 
   public Long getId() {

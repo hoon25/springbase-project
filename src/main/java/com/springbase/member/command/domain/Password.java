@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PROTECTED)
 public class Password {
 
-  @Column(name = "password")
+  @Column(name = "password", nullable = false)
   private String value;
 
   public Password(String value) {
