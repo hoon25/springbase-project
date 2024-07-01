@@ -19,8 +19,13 @@ spring:
         format_sql: true
 
 
+springdoc:
+  swagger-ui:
+    path: /api
+
 logging:
   level:
     root: INFO
     com:
       springbase: DEBUG
+
