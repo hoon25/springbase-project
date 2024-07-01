@@ -10,12 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class JoinMemberService {
-    private MemberRepository memberRepository;
 
-    @Transactional
-    public MemberId join(JoinMemberRequest request) {
-        Member member = request.getMember();
-        memberRepository.save(member);
-        return member.getId();
-    }
+  private MemberRepository memberRepository;
+
+  @Transactional
+  public MemberId join(JoinMemberRequest request) {
+    Member member = request.getMember();
+    memberRepository.save(member);
+    return member.getId();
+  }
 }
