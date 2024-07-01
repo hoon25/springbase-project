@@ -1,9 +1,12 @@
 package com.springbase.member.command.domain;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +15,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PROTECTED)
 public class Member {
 
-  @EmbeddedId
-  private MemberId id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(name = "member_id")
+  private Long id;
 
   private String name;
 
@@ -28,7 +33,7 @@ public class Member {
     this.password = password;
   }
 
-  public MemberId getId() {
+  public Long getId() {
     return id;
   }
 }

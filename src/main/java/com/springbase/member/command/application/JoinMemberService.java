@@ -1,7 +1,6 @@
 package com.springbase.member.command.application;
 
 import com.springbase.member.command.domain.Member;
-import com.springbase.member.command.domain.MemberId;
 import com.springbase.member.command.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class JoinMemberService {
 
-  private MemberRepository memberRepository;
+  private final MemberRepository memberRepository;
 
   @Transactional
-  public MemberId join(JoinMemberRequest request) {
-    Member member = request.getMember();
+  public Long join(JoinMemberRequest request) {
+    Member member = request.toMember();
     memberRepository.save(member);
     return member.getId();
   }
