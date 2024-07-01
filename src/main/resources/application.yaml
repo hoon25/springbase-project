@@ -11,12 +11,18 @@ spring:
       maximum-pool-size: 10
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     show-sql: true
     open-in-view: false
     properties:
       hibernate:
         format_sql: true
+
+  flyway:
+    enabled: true # flyway on/off
+    baseline-on-migrate: true # Flyway ?? ?? ??? ?? ??
+    baseline-version: 0 # ?? ?? ??
+    locations: classpath:db/migration
 
 
 springdoc:
