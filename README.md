@@ -29,7 +29,7 @@ docker run --name mysql -e MYSQL_ROOT_PASSWORD=test12 -itd -v mysql-data:/var/li
 # DDL
 어플리케이션 실행 시 Flyway 실행
 # DML
-resources/sql/data.sql 실행
+resources/db/sql/data.sql 실행
 ```
 
 ### Application
