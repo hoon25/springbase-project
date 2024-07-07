@@ -15,6 +15,6 @@ scrape_configs:
   #추가
   - job_name: "springbase"
     metrics_path: '/actuator/prometheus'
-    scrape_interval: 1s
+    scrape_interval: 1m
     static_configs:
-      - targets: [ 'api:8080' ]
+      - targets: [ 'host.docker.internal:8080' ]

@@ -1,14 +1,6 @@
 version: '3.9'
 
 services:
-  api:
-    image: springbase:local
-    container_name: springbase-api
-    ports:
-      - "8080:8080"
-    networks:
-      - springbase
-
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -22,8 +14,6 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-    depends_on:
-      - api
 
   grafana:
     image: grafana/grafana:latest

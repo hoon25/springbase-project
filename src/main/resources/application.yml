@@ -24,6 +24,16 @@ spring:
     baseline-version: 0 # ?? ?? ??
     locations: classpath:db/migration
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
 
 springdoc:
   swagger-ui:
