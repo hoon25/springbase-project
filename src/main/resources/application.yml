@@ -17,12 +17,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   flyway:
     enabled: true # flyway on/off
     baseline-on-migrate: true # Flyway ?? ?? ??? ?? ??
     baseline-version: 0 # ?? ?? ??
     locations: classpath:db/migration
+  sql:
+    init:
+      mode: never  # needs init data? change never to always
 
 management:
   endpoints:
