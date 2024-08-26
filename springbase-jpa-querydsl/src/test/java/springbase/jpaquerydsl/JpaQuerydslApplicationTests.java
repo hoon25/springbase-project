@@ -1,10 +1,11 @@
-package com.springbase;
+package springbase.jpaquerydsl;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBaseApplicationTests {
+class JpaQuerydslApplicationTests {
 
   @Test
   void contextLoads() {
