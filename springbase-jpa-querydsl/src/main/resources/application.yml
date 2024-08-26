@@ -19,7 +19,7 @@ spring:
       hibernate:
         format_sql: true
   flyway:
-    enabled: false # flyway on/off
+    enabled: true # flyway on/off
     baseline-on-migrate: true # Flyway ?? ?? ??? ?? ??
     baseline-version: 0 # ?? ?? ??
     locations: classpath:db/migration
