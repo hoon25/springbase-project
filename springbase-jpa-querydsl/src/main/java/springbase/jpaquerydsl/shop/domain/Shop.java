@@ -22,6 +22,7 @@ import springbase.jpaquerydsl.coupon.domain.Coupon;
 @NoArgsConstructor(access = PROTECTED)
 @Getter
 public class Shop {
+
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "shop_id")
@@ -48,5 +49,34 @@ public class Shop {
 
   // 가게 쿠폰
   @OneToMany(mappedBy = "shop")
-  private List<Coupon> coupons;
+  private List<Coupon> coupons = new ArrayList<>();
+
+
+  private Shop(String name, String description, Integer minOrderPrice, Integer deliveryTip,
+      ShopCategory shopCategory,
+      Long orderCount,
+      List<Coupon> coupons) {
+    this.name = name;
+    this.description = description;
+    this.minOrderPrice = minOrderPrice;
+    this.deliveryTip = deliveryTip;
+    this.orderCount = orderCount;
+    this.shopCategory = shopCategory;
+    this.coupons = coupons;
+  }
+
+  public static Shop create(String name, String description, int minOrderPrice, int deliveryTip,
+      String shopCategory) {
+    return new Shop(name, description, minOrderPrice, deliveryTip,
+        ShopCategory.valueOf(shopCategory), 0L, null);
+  }
+
+  public void update(String name, String description, int minOrderPrice, int deliveryTip,
+      String shopCategory) {
+    this.name = name;
+    this.description = description;
+    this.minOrderPrice = minOrderPrice;
+    this.deliveryTip = deliveryTip;
+    this.shopCategory = ShopCategory.valueOf(shopCategory);
+  }
 }
