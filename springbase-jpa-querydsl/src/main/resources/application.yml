@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: springbase-jpa-querydsl
@@ -41,8 +40,11 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /api
+    displayRequestDuration: true
+    use-root-path: true
 
 logging:
   level:
     root: INFO
+    springbase:
+      jpaquerydsl: DEBUG

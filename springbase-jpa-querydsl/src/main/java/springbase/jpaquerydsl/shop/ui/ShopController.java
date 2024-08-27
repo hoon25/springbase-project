@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springbase.jpaquerydsl.core.ui.ApiCommonResponse;
 import springbase.jpaquerydsl.shop.application.ShopService;
 import springbase.jpaquerydsl.shop.domain.Shop;
 import springbase.jpaquerydsl.shop.infrastructure.ShopSearchCond;
@@ -34,16 +33,16 @@ public class ShopController {
   private final ShopService shopService;
 
   @PostMapping("")
-  public ResponseEntity<ApiCommonResponse<Void>> save(@RequestBody @Validated ShopSaveRequest req) {
+  public ResponseEntity<Void> save(@RequestBody @Validated ShopSaveRequest req) {
     Long shopId = shopService.save(req);
     return ResponseEntity.created(URI.create("/shops/" + shopId)).build();
   }
 
   @GetMapping("")
-  public ResponseEntity<ApiCommonResponse<Page<ShopSimpleResponse>>> search(
+  public ResponseEntity<Page<ShopSimpleResponse>> search(
       @ParameterObject ShopSearchCond condition, @ParameterObject Pageable pageable) {
     Page<Shop> shops = shopService.search(condition, pageable);
-    return ResponseEntity.ok(new ApiCommonResponse<>(shops.map(ShopSimpleResponse::from)));
+    return ResponseEntity.ok(shops.map(ShopSimpleResponse::from));
   }
 
   @GetMapping("/{id}")
@@ -54,14 +53,14 @@ public class ShopController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<ApiCommonResponse<Void>> update(@PathVariable Long id,
+  public ResponseEntity<Void> update(@PathVariable Long id,
       @RequestBody @Validated ShopUpdateRequest req) {
     shopService.update(id, req);
     return ResponseEntity.noContent().build();
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<ApiCommonResponse<Void>> delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     shopService.delete(id);
     return ResponseEntity.noContent().build();
   }
