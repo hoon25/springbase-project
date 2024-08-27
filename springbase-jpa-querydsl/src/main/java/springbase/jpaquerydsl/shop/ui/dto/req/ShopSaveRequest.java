@@ -4,12 +4,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import springbase.jpaquerydsl.shop.domain.Shop;
 import springbase.jpaquerydsl.shop.domain.ShopCategory;
 
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShopSaveRequest {
 
   @Schema(description = "가게 이름")

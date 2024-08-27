@@ -63,10 +63,20 @@ subprojects {
 
         // Test
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'io.rest-assured:rest-assured:4.5.1'
         testCompileOnly 'org.projectlombok:lombok'
         testAnnotationProcessor 'org.projectlombok:lombok'
-        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         testRuntimeOnly 'com.h2database:h2'
+        // Test Cucumber
+        testImplementation 'io.rest-assured:rest-assured:5.3.2'
+        testImplementation 'io.cucumber:cucumber-java:7.18.1'
+        testImplementation 'io.cucumber:cucumber-spring:7.18.1'
+        testImplementation 'io.cucumber:cucumber-junit:7.18.1'
+        testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.18.1'
+        testImplementation("org.junit.platform:junit-platform-suite:1.10.3")
+        testImplementation("org.junit.platform:junit-platform-suite-api:1.10.3")
+        testImplementation("org.junit.platform:junit-platform-commons:1.10.3")
+        testImplementation("org.junit.platform:junit-platform-engine:1.10.3")
     }
 
     // Querydsl 설정
@@ -79,7 +89,7 @@ subprojects {
 
     // java source set 에 querydsl QClass 위치 추가
     sourceSets {
-        main.java.srcDirs += [ generated ]
+        main.java.srcDirs += [generated]
     }
 
     // gradle clean 시에 QClass 디렉토리 삭제
@@ -93,5 +103,5 @@ subprojects {
 }
 
 bootJar.enabled = false
-jar.enabled=true
+jar.enabled = true
 

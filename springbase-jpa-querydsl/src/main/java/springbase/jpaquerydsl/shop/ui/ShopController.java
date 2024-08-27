@@ -25,7 +25,7 @@ import springbase.jpaquerydsl.shop.ui.dto.resp.ShopDetailResponse;
 import springbase.jpaquerydsl.shop.ui.dto.resp.ShopSimpleResponse;
 
 @RestController
-@RequestMapping("shops")
+@RequestMapping(value = "shops")
 @RequiredArgsConstructor
 @Tag(name = "Shop", description = "가게 API")
 public class ShopController {
@@ -46,21 +46,21 @@ public class ShopController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ShopDetailResponse> findById(@PathVariable Long id) {
+  public ResponseEntity<ShopDetailResponse> findById(@PathVariable(value = "id") Long id) {
     Shop shop = shopService.findById(id);
     ShopDetailResponse response = ShopDetailResponse.from(shop);
     return ResponseEntity.ok(response);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Void> update(@PathVariable Long id,
+  public ResponseEntity<Void> update(@PathVariable(value = "id") Long id,
       @RequestBody @Validated ShopUpdateRequest req) {
     shopService.update(id, req);
     return ResponseEntity.noContent().build();
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
     shopService.delete(id);
     return ResponseEntity.noContent().build();
   }
