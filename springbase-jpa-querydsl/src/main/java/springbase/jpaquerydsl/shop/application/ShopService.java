@@ -21,7 +21,7 @@ public class ShopService {
   @Transactional
   public Long save(ShopSaveRequest req) {
     Shop shop = req.toShop();
-    shopRepository.save(req.toShop());
+    shopRepository.save(shop);
     return shop.getId();
   }
 

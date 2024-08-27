@@ -66,17 +66,17 @@ public class Shop {
   }
 
   public static Shop create(String name, String description, int minOrderPrice, int deliveryTip,
-      String shopCategory) {
+      ShopCategory shopCategory) {
     return new Shop(name, description, minOrderPrice, deliveryTip,
-        ShopCategory.valueOf(shopCategory), 0L, null);
+        shopCategory, 0L, null);
   }
 
   public void update(String name, String description, int minOrderPrice, int deliveryTip,
-      String shopCategory) {
+      ShopCategory shopCategory) {
     this.name = name;
     this.description = description;
     this.minOrderPrice = minOrderPrice;
     this.deliveryTip = deliveryTip;
-    this.shopCategory = ShopCategory.valueOf(shopCategory);
+    this.shopCategory = shopCategory;
   }
 }

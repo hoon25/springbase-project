@@ -7,6 +7,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class ShopController {
   private final ShopService shopService;
 
   @PostMapping("")
-  public ResponseEntity<ApiCommonResponse<Void>> save(@RequestBody ShopSaveRequest req) {
+  public ResponseEntity<ApiCommonResponse<Void>> save(@RequestBody @Validated ShopSaveRequest req) {
     Long shopId = shopService.save(req);
     return ResponseEntity.created(URI.create("/shops/" + shopId)).build();
   }
@@ -46,15 +47,15 @@ public class ShopController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ApiCommonResponse<ShopDetailResponse>> findById(@PathVariable Long id) {
+  public ResponseEntity<ShopDetailResponse> findById(@PathVariable Long id) {
     Shop shop = shopService.findById(id);
     ShopDetailResponse response = ShopDetailResponse.from(shop);
-    return ResponseEntity.ok(new ApiCommonResponse<>(response));
+    return ResponseEntity.ok(response);
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<ApiCommonResponse<Void>> update(@PathVariable Long id,
-      @RequestBody ShopUpdateRequest req) {
+      @RequestBody @Validated ShopUpdateRequest req) {
     shopService.update(id, req);
     return ResponseEntity.noContent().build();
   }
