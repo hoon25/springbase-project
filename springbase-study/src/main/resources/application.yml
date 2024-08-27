@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: springbase-study
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jpaquerydsl?serverTimezone=Asia/Seoul
+    username: root
+    password: test12
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show-sql: true
+  flyway:
+    enabled: true # flyway on/off
+    baseline-on-migrate: true # Flyway ?? ?? ??? ?? ??
+    baseline-version: 0 # ?? ?? ??
+    locations: classpath:db/migration
+  sql:
+    init:
+      mode: never  # needs init data? change never to always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    displayRequestDuration: true
+    use-root-path: true
+
+logging:
+  level:
+    root: INFO
+    springbase:
+      jpaquerydsl: DEBUG

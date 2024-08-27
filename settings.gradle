@@ -1,2 +1,2 @@
 rootProject.name = 'springbase-project'
-include 'springbase-jpa-querydsl'
+include 'springbase-study'
