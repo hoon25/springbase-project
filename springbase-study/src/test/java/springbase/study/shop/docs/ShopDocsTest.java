@@ -1,4 +1,4 @@
-package springbase.study.shop.documentation;
+package springbase.study.shop.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -14,15 +14,15 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import springbase.study.shop.application.ShopService;
 import springbase.study.shop.domain.Shop;
 import springbase.study.shop.domain.ShopCategory;
-import springbase.study.utils.docs.Documentation;
+import springbase.study.utils.docs.DocsTest;
 
-public class ShopDocumentation extends Documentation {
+public class ShopDocsTest extends DocsTest {
 
   @MockBean
   private ShopService shopService;
 
   @Test
-  void test() throws Exception {
+  void shopGet() throws Exception {
     Mockito.when(shopService.findById(1L))
         .thenReturn(Shop.create("가게1", "설명", 10000, 2000, ShopCategory.CHINA_FOOD));
     this.mockMvc.perform(RestDocumentationRequestBuilders.get("/shops/{id}", 1L))
