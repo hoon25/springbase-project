@@ -1,0 +1,16 @@
+= REST Docs
+springbase-study REST API 문서입니다.
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[Shop-API]]
+== Shop API
+
+[[Shop-API-GET]]
+=== 가게 단일 조회
+
+operation::shop-get[]
