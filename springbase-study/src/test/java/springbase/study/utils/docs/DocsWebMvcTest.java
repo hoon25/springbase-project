@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public abstract class DocsTest {
+public abstract class DocsWebMvcTest {
 
   protected MockMvc mockMvc;
 
@@ -27,7 +27,7 @@ public abstract class DocsTest {
 
   @BeforeEach
   void setUp(WebApplicationContext context, RestDocumentationContextProvider restDocumentation) {
-    this.documentationHandler = document("{method-name}",
+    this.documentationHandler = document("{class-name}/{method-name}",
         preprocessRequest(prettyPrint()),
         preprocessResponse(prettyPrint()));
 

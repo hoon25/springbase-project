@@ -1,8 +1,10 @@
 package springbase.study.shop.acceptance.atdd.step;
 
-import io.restassured.RestAssured;
+import static io.restassured.RestAssured.given;
+
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import springbase.study.shop.ui.dto.req.ShopSaveRequest;
@@ -14,24 +16,37 @@ public class ShopStep {
   public static final String SHOP_RESOURCE_PATH = SHOP_BASE_PATH + "/{shopId}";
 
   public static ExtractableResponse<Response> 가게_생성_요청(ShopSaveRequest request) {
-    return RestAssured
-        .given().log().all()
+    return given().log().all()
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when().post(SHOP_BASE_PATH)
         .then().log().all().extract();
   }
 
+  public static void 가게_생성_문서(ShopSaveRequest request, RequestSpecification spec) {
+    given().log().all()
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .spec(spec)
+        .body(request)
+        .when().post(SHOP_BASE_PATH)
+        .then().log().all().extract();
+  }
+
   public static ExtractableResponse<Response> 가게_조회_요청(Long shopId) {
-    return RestAssured
-        .given().log().all()
+    return given().log().all()
+        .when().get(SHOP_RESOURCE_PATH, shopId)
+        .then().log().all().extract();
+  }
+
+  public static void 가게_조회_문서(Long shopId, RequestSpecification spec) {
+    given().log().all()
+        .spec(spec)
         .when().get(SHOP_RESOURCE_PATH, shopId)
         .then().log().all().extract();
   }
 
   public static ExtractableResponse<Response> 가게_수정_요청(Long shopId, ShopUpdateRequest request) {
-    return RestAssured
-        .given().log().all()
+    return given().log().all()
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when().put(SHOP_RESOURCE_PATH, shopId)
@@ -39,8 +54,7 @@ public class ShopStep {
   }
 
   public static ExtractableResponse<Response> 가게_삭제_요청(Long shopId) {
-    return RestAssured
-        .given().log().all()
+    return given().log().all()
         .when().delete(SHOP_RESOURCE_PATH, shopId)
         .then().log().all().extract();
   }

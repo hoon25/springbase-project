@@ -2,12 +2,14 @@ package springbase.study.shop.ui.dto.resp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import springbase.study.shop.domain.Shop;
 import springbase.study.shop.domain.ShopCategory;
 
 @Getter
 @AllArgsConstructor
+@Builder
 @Schema(description = "가게 상세 응답")
 public class ShopDetailResponse {
 

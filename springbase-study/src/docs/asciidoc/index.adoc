@@ -10,7 +10,14 @@ springbase-study REST API 문서입니다.
 [[Shop-API]]
 == Shop API
 
-[[Shop-API-GET]]
-=== 가게 단일 조회
+[[Shop-단일-조회]]
+=== Shop 단일 조회
 
-operation::shop-get[]
+operation::shop-docs-test/shop-get[snippets='http-request,path-parameters,http-response,response-fields']
+
+[[Shop-생성]]
+=== Shop 생성
+
+operation::shop-docs-test/shop-post[]
+
+[[Shop-수정]]
