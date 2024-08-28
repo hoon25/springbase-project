@@ -10,6 +10,8 @@ import springbase.study.shop.infrastructure.ShopRepository;
 import springbase.study.shop.infrastructure.ShopSearchCond;
 import springbase.study.shop.ui.dto.req.ShopSaveRequest;
 import springbase.study.shop.ui.dto.req.ShopUpdateRequest;
+import springbase.study.shop.ui.dto.resp.ShopDetailResponse;
+import springbase.study.shop.ui.dto.resp.ShopSimpleResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +27,15 @@ public class ShopService {
     return shop.getId();
   }
 
-  public Page<Shop> search(ShopSearchCond condition, Pageable pageable) {
-    return shopRepository.search(condition, pageable);
+  public Page<ShopSimpleResponse> search(ShopSearchCond condition, Pageable pageable) {
+    Page<Shop> shops = shopRepository.search(condition, pageable);
+    return shops.map(ShopSimpleResponse::from);
   }
 
-  public Shop findById(Long id) {
-    return shopRepository.findById(id)
+  public ShopDetailResponse findById(Long id) {
+    Shop shop = shopRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("가게를 찾을 수 없습니다."));
+    return ShopDetailResponse.from(shop);
   }
 
   @Transactional

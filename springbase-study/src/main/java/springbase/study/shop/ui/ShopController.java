@@ -41,14 +41,13 @@ public class ShopController {
   @GetMapping("")
   public ResponseEntity<Page<ShopSimpleResponse>> search(
       @ParameterObject ShopSearchCond condition, @ParameterObject Pageable pageable) {
-    Page<Shop> shops = shopService.search(condition, pageable);
-    return ResponseEntity.ok(shops.map(ShopSimpleResponse::from));
+    Page<ShopSimpleResponse> response = shopService.search(condition, pageable);
+    return ResponseEntity.ok(response);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ShopDetailResponse> findById(@PathVariable(value = "id") Long id) {
-    Shop shop = shopService.findById(id);
-    ShopDetailResponse response = ShopDetailResponse.from(shop);
+    ShopDetailResponse response = shopService.findById(id);
     return ResponseEntity.ok(response);
   }
 

@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 
 @ActiveProfiles("test")
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @TestExecutionListeners(
