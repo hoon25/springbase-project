@@ -5,7 +5,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
     id 'com.epages.restdocs-api-spec' version '0.18.2'
-    id 'org.hidetake.swagger.generator' version '2.19.2'
 }
 group = 'springbase'
 version = '0.0.1-SNAPSHOT'
@@ -20,7 +19,6 @@ allprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.asciidoctor.jvm.convert'
     apply plugin: 'com.epages.restdocs-api-spec'
-    apply plugin: 'org.hidetake.swagger.generator'
 
     java {
         toolchain {
@@ -57,8 +55,6 @@ subprojects {
 
         // Swagger
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-        // Swagger with RestDocs
-        swaggerUI 'org.webjars:swagger-ui:3.52.5'
         testImplementation 'com.epages:restdocs-api-spec-restassured:0.18.2'
         testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.2'
 
@@ -145,6 +141,13 @@ subprojects {
         version = "0.0.1" // API 문서 버전
         format = "yaml" // API 문서 출력 포맷 (default = JSON)
         outputDirectory = file("${project.buildDir}/resources/main/static/swagger") // API 문서 출력 경로
+    }
+
+    afterEvaluate {
+        tasks.named('openapi3').configure {
+            dependsOn.clear()
+            dependsOn tasks.named('testDocs')
+        }
     }
 
     tasks.named('test') {
