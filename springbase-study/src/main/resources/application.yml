@@ -42,6 +42,8 @@ springdoc:
   swagger-ui:
     displayRequestDuration: true
     use-root-path: true
+    url: /swagger/openapi3.yaml
+    path: /api
 
 logging:
   level:

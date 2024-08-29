@@ -27,7 +27,6 @@ import springbase.study.shop.ui.dto.resp.ShopSimpleResponse;
 @RestController
 @RequestMapping(value = "shops")
 @RequiredArgsConstructor
-@Tag(name = "Shop", description = "가게 API")
 public class ShopController {
 
   private final ShopService shopService;

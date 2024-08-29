@@ -4,6 +4,8 @@ plugins {
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'com.epages.restdocs-api-spec' version '0.18.2'
+    id 'org.hidetake.swagger.generator' version '2.19.2'
 }
 group = 'springbase'
 version = '0.0.1-SNAPSHOT'
@@ -17,6 +19,8 @@ allprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.asciidoctor.jvm.convert'
+    apply plugin: 'com.epages.restdocs-api-spec'
+    apply plugin: 'org.hidetake.swagger.generator'
 
     java {
         toolchain {
@@ -53,6 +57,10 @@ subprojects {
 
         // Swagger
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+        // Swagger with RestDocs
+        swaggerUI 'org.webjars:swagger-ui:3.52.5'
+        testImplementation 'com.epages:restdocs-api-spec-restassured:0.18.2'
+        testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.2'
 
         // Lombok
         compileOnly 'org.projectlombok:lombok'
@@ -71,7 +79,6 @@ subprojects {
 
         // Test
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        testImplementation 'io.rest-assured:rest-assured'
         testCompileOnly 'org.projectlombok:lombok'
         testAnnotationProcessor 'org.projectlombok:lombok'
         testRuntimeOnly 'com.h2database:h2'
@@ -87,7 +94,9 @@ subprojects {
         testImplementation("org.junit.platform:junit-platform-engine:1.10.3")
     }
 
-    // Querydsl 설정
+
+    //==================================================================================================
+    // QueryDSL 관련 Task
     def queryDSLGenerated = 'src/main/generated'
     // querydsl QClass 파일 생성 위치를 지정
     tasks.withType(JavaCompile) {
@@ -98,8 +107,13 @@ subprojects {
         main.java.srcDirs += [queryDSLGenerated]
     }
 
+    tasks.named('clean') {
+        // QClass 삭제
+        delete file(queryDSLGenerated)
+    }
 
-    // RestDocs 설정
+    //==================================================================================================
+    // RestDocs 관련 Task
     def buildSnippetsDir = 'build/generated-snippets' // snippet이 생성되는 디렉터리 경로
 
     tasks.register('testDocs', Test) {
@@ -110,34 +124,40 @@ subprojects {
         outputs.dir file(buildSnippetsDir)
     }
 
-    asciidoctor {
+    tasks.named('asciidoctor') {
+        dependsOn testDocs
         inputs.dir file(buildSnippetsDir)
         configurations 'asciidoctorExtensions'
-        dependsOn testDocs
-    }
-
-    bootJar {
-        dependsOn asciidoctor
-        from("${asciidoctor.outputDir}/html5") {
-            into 'static/docs'
+        doLast {
+            copy {
+                from file("${asciidoctor.outputDir}")
+                into file("src/main/resources/static/docs")
+            }
         }
     }
 
-    task copyDocs(type: Copy) {
-        dependsOn asciidoctor
-
-        from file("build/docs/asciidoc")
-        into file("src/main/resources/static/docs")
+    //==================================================================================================
+    //RestDocs기반 Swagger 생성 Task
+    openapi3 {
+        server = "http://localhost:8080" // API 요청을 보낼 서버 주소 설정
+        title = "restdocs-swagger API Documentation" // API 문서 제목
+        description = "Spring REST Docs with SwaggerUI." // API 문서 설명
+        version = "0.0.1" // API 문서 버전
+        format = "yaml" // API 문서 출력 포맷 (default = JSON)
+        outputDirectory = file("${project.buildDir}/resources/main/static/swagger") // API 문서 출력 경로
     }
 
     tasks.named('test') {
         useJUnitPlatform()
     }
 
-    tasks.named('clean') {
-        // QClass 삭제
-        delete file(queryDSLGenerated)
-        // RestDocs 삭제
-        delete file('src/main/resources/static/docs')
+    tasks.register('updateDocs', Test) {
+        // 문서만 업데이트
+        dependsOn('asciidoctor')
+        dependsOn('openapi3')
+    }
+
+    tasks.named('bootJar') {
+        dependsOn updateDocs
     }
 }

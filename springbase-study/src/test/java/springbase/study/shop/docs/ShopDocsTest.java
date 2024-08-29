@@ -1,5 +1,6 @@
 package springbase.study.shop.docs;
 
+import static com.epages.restdocs.apispec.RestAssuredRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -9,7 +10,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.document;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
