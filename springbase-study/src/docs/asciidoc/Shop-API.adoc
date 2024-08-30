@@ -1,0 +1,16 @@
+[[Shop-API]]
+== Shop API
+
+[[Shop-단일-조회]]
+=== Shop 단일 조회
+operation::shop-controller-test/shop-get[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+[[Shop-페이징-조회]]
+=== Shop 페이징 조회
+operation::shop-controller-test/shop-get-paging[snippets='curl-request,http-request,query-parameters,http-response,response-fields']
+
+[[Shop-생성]]
+=== Shop 생성
+operation::shop-controller-test/shop-post[snippets='curl-request,http-request,request-fields,http-response,response-headers,response-body']
+
+[[Shop-수정]]

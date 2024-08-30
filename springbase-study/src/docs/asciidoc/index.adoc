@@ -7,22 +7,4 @@ springbase-study REST API 문서입니다.
 :toclevels: 2
 :sectlinks:
 
-[[Shop-API]]
-== Shop API
-
-[[Shop-단일-조회]]
-=== Shop 단일 조회
-
-operation::shop-docs-mvc-test/shop-get[snippets='http-request,path-parameters,http-response,response-fields']
-
-[[Shop-목록-조회]]
-=== Shop 목록 조회
-
-operation::shop-docs-mvc-test/shop-get-query[snippets='http-request,http-response,query-parameters,response-fields']
-
-[[Shop-생성]]
-=== Shop 생성
-
-operation::shop-docs-mvc-test/shop-post[]
-
-[[Shop-수정]]
+include::Shop-API.adoc[]
