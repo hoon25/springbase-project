@@ -24,10 +24,10 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         .where(
             nameLike(condition.getName()),
             shopCategoryEq(condition.getShopCategory()),
-            underMinOrderPrice(condition.getUnderMinOrderPrice()),
-            overMinOrderPrice(condition.getOverMinOrderPrice()),
-            underDeliveryTip(condition.getUnderDeliveryTip()),
-            overDeliveryTip(condition.getOverDeliveryTip())
+            lowerBoundMinOrderPrice(condition.getLowerBoundMinOrderPrice()),
+            upperBoundMinOrderPrice(condition.getUpperBoundMinOrderPrice()),
+            lowerBoundDeliveryTip(condition.getLowerBoundDeliveryTip()),
+            upperBoundDeliveryTip(condition.getUpperBoundDeliveryTip())
         )
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
@@ -45,19 +45,19 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     return shopCategory != null ? shop.shopCategory.eq(shopCategory) : null;
   }
 
-  private BooleanExpression underMinOrderPrice(Integer minOrderPrice) {
+  private BooleanExpression lowerBoundMinOrderPrice(Integer minOrderPrice) {
     return minOrderPrice != null ? shop.minOrderPrice.loe(minOrderPrice) : null;
   }
 
-  private BooleanExpression overMinOrderPrice(Integer minOrderPrice) {
+  private BooleanExpression upperBoundMinOrderPrice(Integer minOrderPrice) {
     return minOrderPrice != null ? shop.minOrderPrice.goe(minOrderPrice) : null;
   }
 
-  private BooleanExpression underDeliveryTip(Integer deliveryTip) {
+  private BooleanExpression lowerBoundDeliveryTip(Integer deliveryTip) {
     return deliveryTip != null ? shop.deliveryTip.loe(deliveryTip) : null;
   }
 
-  private BooleanExpression overDeliveryTip(Integer deliveryTip) {
+  private BooleanExpression upperBoundDeliveryTip(Integer deliveryTip) {
     return deliveryTip != null ? shop.deliveryTip.goe(deliveryTip) : null;
   }
 }

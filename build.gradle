@@ -113,6 +113,9 @@ subprojects {
     def buildSnippetsDir = 'build/generated-snippets' // snippet이 생성되는 디렉터리 경로
 
     tasks.register('testDocs', Test) {
+        doFirst {
+            delete file(buildSnippetsDir)
+        }
         useJUnitPlatform()
         filter {
             includeTestsMatching "*.docs.*"

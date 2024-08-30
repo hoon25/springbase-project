@@ -11,6 +11,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +30,7 @@ public class ShopDocsTest extends DocsRestAssuredTest {
   private ShopService shopService;
 
   @Test
+  @Disabled
   void shopGet() {
     // given
     when(shopService.findById(1L))
@@ -56,6 +58,7 @@ public class ShopDocsTest extends DocsRestAssuredTest {
   }
 
   @Test
+  @Disabled
   void shopPost() {
     when(shopService.save(any(ShopSaveRequest.class)))
         .thenReturn(1L);

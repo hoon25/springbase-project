@@ -11,10 +11,10 @@ import springbase.study.shop.domain.ShopCategory;
 public class ShopSearchCond {
 
   private String name;
-  private Integer underMinOrderPrice;
-  private Integer overMinOrderPrice;
-  private Integer underDeliveryTip;
-  private Integer overDeliveryTip;
+  private Integer lowerBoundMinOrderPrice;
+  private Integer upperBoundMinOrderPrice;
+  private Integer lowerBoundDeliveryTip;
+  private Integer upperBoundDeliveryTip;
   private ShopCategory shopCategory;
 
 
